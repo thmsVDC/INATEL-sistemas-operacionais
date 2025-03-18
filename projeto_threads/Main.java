@@ -20,7 +20,6 @@ public class Main {
             }
         }
 
-        // Criar e iniciar as threads
         for (int i = 0; i < numThreads; i++) {
             new PasswordBroken(password, i, numThreads).start();
         }
