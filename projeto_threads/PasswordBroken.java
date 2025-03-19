@@ -24,7 +24,7 @@ class PasswordBroken extends Thread {
             synchronized (PasswordBroken.class) {
                 if (!passwordFound && attempt.equals(password)) {
                     passwordFound = true;
-                    System.out.println("🚨 Senha encontrada: " + attempt + " pela " + Thread.currentThread().getName());
+                    System.out.println("Senha encontrada: " + attempt + " pela " + Thread.currentThread().getName());
                     break;
                 }
             }
