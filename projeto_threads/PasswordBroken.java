@@ -13,24 +13,21 @@ class PasswordBroken extends Thread {
 
     @Override
     public void run() {
-        long start = (10000L / totalThreads) * threadNumber;
-        long end = (10000L / totalThreads) * (threadNumber + 1);
+        int start = (10000 / totalThreads) * threadNumber;
+        int end = (threadNumber == totalThreads - 1) ? 10000 : (10000 / totalThreads) * (threadNumber + 1);
 
         for (long i = start; i < end; i++) {
-            String attempt = String.format("%04d", i);
-            
-            System.out.println(Thread.currentThread().getName() + " tentando a senha: " + attempt);
-
-            synchronized (PasswordBroken.class) {
-                if (!passwordFound && attempt.equals(password)) {
-                    passwordFound = true;
-                    System.out.println("Senha encontrada: " + attempt + " pela " + Thread.currentThread().getName());
-                    break;
-                }
+            if (passwordFound) {
+                return;
             }
 
-            if (passwordFound) {
-                break;
+            String attempt = String.format("%04d", i);
+            System.out.println(Thread.currentThread().getName() + " tentando a senha: " + attempt);
+
+            if (attempt.equals(password)) {
+                passwordFound = true;
+                System.out.println("Senha encontrada: " + attempt + " pela " + Thread.currentThread().getName());
+                return;
             }
         }
     }
